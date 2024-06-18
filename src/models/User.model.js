@@ -15,6 +15,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
+      match: [/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter'],
       required: true,
     },
     avatar: {
