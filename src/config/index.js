@@ -2,6 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("./passport");
 
 // Middleware configuration
 module.exports = (app) => {
@@ -27,4 +29,17 @@ module.exports = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+
+  // Session middleware
+  app.use(
+    session({
+      secret: "your_secret_key",
+      resave: true,
+      saveUninitialized: true,
+    })
+  );
+
+  // Passport initialization
+  app.use(passport.initialize());
+  app.use(passport.session());
 };

@@ -2,6 +2,7 @@
 require("dotenv").config();
 require("./db");
 const express = require("express");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -9,9 +10,9 @@ const app = express();
 require("./config")(app);
 
 // ROUTES
-app.get("/", (req, res) => {
-  console.log(req);
-});
+app.use("/auth", authRoutes);
+const indexRoutes = require("./routes/index.routes");
+app.use("/api", indexRoutes);
 
 require("./error-handling")(app);
 
